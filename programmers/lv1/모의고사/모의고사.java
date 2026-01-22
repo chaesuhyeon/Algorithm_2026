@@ -15,41 +15,33 @@ public class 모의고사 {
         int[] two = new int[]{2, 1, 2, 3, 2, 4, 2, 5};
         int[] three = new int[]{3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
 
-        int oneResult = 0;
-        int twoResult = 0;
-        int threeResult = 0;
+        int[] scores = new int[3];
 
         for (int i = 0; i < answers.length; i++) {
             if(answers[i] == one[i % one.length]) {
-                oneResult ++;
+                scores[0] ++;
             }
 
             if(answers[i] == two[i % two.length]) {
-                twoResult ++;
+                scores[1] ++;
             }
 
             if(answers[i] == three[i % three.length]) {
-                threeResult ++;
+                scores[2] ++;
             }
         }
 
-        int max = Math.max(oneResult, Math.max(twoResult, threeResult));
+        int maxScore = Arrays.stream(scores).max().getAsInt();
 
         ArrayList<Integer> result = new ArrayList<>();
 
-        if (oneResult == max) {
-            result.add(1);
-        }
+        for (int i = 0; i <scores.length; i++) {
+            if (scores[i] == maxScore) {
+                result.add(i + 1);
+            }
+        };
 
-        if (twoResult == max) {
-            result.add(2);
-        }
-
-        if (threeResult == max){
-            result.add(3);
-        }
-
-        int[] resultArr = result.stream().mapToInt(Integer::intValue).sorted().toArray();
+        int[] resultArr = result.stream().mapToInt(Integer::intValue).toArray();
         return resultArr;
     }
 }
